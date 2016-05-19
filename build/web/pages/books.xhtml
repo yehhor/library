@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/library_template.xhtml">
+            <ui:define name="title">
+                #{msg.welcome_title}
+            </ui:define>
+            <ui:define name="content">
+                <h:form id="booksForm">
+
+                    <h:outputText value="#{msg.books_count} #{searchController.pager.totalBooksCount}" id="totalBooksCount"/><br></br>
+                    <h:outputText value="#{msg.booksOnPage}"/>
+                    <h:selectOneMenu styleClass="pageCountSel" value="#{searchController.pager.booksOnPage}" valueChangeListener="#{searchController.booksOnPageChange}">
+                        <f:selectItem itemValue="1" />
+                        <f:selectItem itemValue="2" />
+                        <f:selectItem itemValue="3" />
+                        <f:selectItem itemValue="10" />
+                        <f:selectItem itemValue="50" />
+                        <f:ajax event="change" execute="@form" render=":booksForm :booksForm:bookList :page1 :page2"/>
+                    </h:selectOneMenu>
+                    <h:panelGroup id="adminTools" rendered="#{request.isUserInRole('ADMIN')}">
+
+                        <h:commandLink styleClass="addBook" action="#{searchController.switchMode()}" rendered="#{!searchController.editMode}">
+                            <h:graphicImage library="images" name="add.png" width="14px"/>
+                            <h:outputText value="#{msg.addBook}"/>
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandLink>
+                           
+                        <h:commandLink styleClass="editBooks" action="#{searchController.switchMode()}" rendered="#{!searchController.editMode}">
+                            <h:graphicImage library="images" name="edit-xxl.png" width="14px"/>
+                            <h:outputText value="#{msg.editBooks}"/>
+                            <f:ajax  execute="@form" render="@form"/>
+
+                        </h:commandLink>    
+
+                        <h:commandButton styleClass="adminBtn" value="#{msg.saveBtn}" action="#{searchController.updateBooks()}" rendered="#{searchController.editMode}">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton>   
+                        <h:commandButton styleClass="adminBtn" immediate="true" value="#{msg.cancelBtn}" action="#{searchController.cancelEdit()}" rendered="#{searchController.editMode}">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton>
+                    </h:panelGroup>
+
+                    <h:dataTable id="bookList" value="#{searchController.pager.currentBookList}" var="b" columnClasses="col0,col1,col2,col3" 
+                                 rowClasses="row1,row2" cellspacing="0px" styleClass="contentTable" cellpadding="10px">
+                        
+                        
+                        <h:column>
+                            <h:outputLink value="#{request.contextPath}/PdfContent?id=#{b.id}" target="_blank">
+                                <h:graphicImage value="/ShowImage?index=#{searchController.row}" alt="image" width="150px"/>
+                            </h:outputLink> 
+
+                        </h:column>
+
+                        <h:column>
+                            <div class="info">
+                                
+                                <p><h:outputLink value="#{request.contextPath}/PdfContent?id=#{b.id}" target="_blank">
+                                        <h:outputText value="#{b.name}" rendered="#{!b.edit}"/>
+                                        <h:inputText value="#{b.name}" styleClass="edit" rendered="#{searchController.editMode and b.edit}"/>
+                                    </h:outputLink></p>
+                                
+                                <p><strong>#{msg.author_name}:</strong>
+                                    <h:outputText value="#{b.author.fio}" rendered="#{!b.edit}"/>
+                                    <h:inputText value="#{b.author.fio}" styleClass="edit" rendered="#{searchController.editMode and b.edit}"/>
+                                </p>
+                                
+                                <p><strong>#{msg.page_count}:</strong>
+                                    <h:outputText value="#{b.pageCount}" rendered="#{!b.edit}"/>
+                                    <h:inputText value="#{b.pageCount}" styleClass="edit" rendered="#{searchController.editMode and b.edit}"/>
+                                </p>
+                                
+                                <p><strong>#{msg.publisher}:</strong>
+                                    <h:outputText value="#{b.publisher.name}" rendered="#{!b.edit}"/>
+                                    <h:inputText value="#{b.publisher.name}" styleClass="edit" rendered="#{searchController.editMode and b.edit}"/>
+                                </p>
+                                
+                                <p><strong>#{msg.publish_year}:</strong>
+                                    <h:outputText value="#{b.publishYear}" rendered="#{!b.edit}"/>
+                                    <h:inputText value="#{b.publishYear}" styleClass="edit" rendered="#{searchController.editMode and b.edit}"/>
+                                </p>
+                                
+                                <p><h:outputLink value="#{request.contextPath}/PdfContent?id=#{b.id}" target="_blank">#{msg.read_book}</h:outputLink></p>
+                                <p><h:outputLink value="#{request.contextPath}/PdfContent" target="_blank">
+                                        #{msg.download_book}
+                                        <f:param name="id" value="#{b.id}"/>
+                                        <f:param name="title" value="#{b.name}"/>
+                                        <f:param name="download" value="true"/>
+                                    </h:outputLink></p>
+                            </div>
+                        </h:column>
+
+                        <h:column>
+                            <p class="desc"><strong>#{msg.book_description}:</strong>
+                                <h:outputText value="#{b.descr}" rendered="#{!b.edit}"/><br></br>
+                                <h:inputTextarea value="#{b.descr}" styleClass="edit" rendered="#{searchController.editMode and b.edit}"/>
+                            </p>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="paginator">
+
+                <h:form rendered="#{searchController.pager.totalBooksCount > searchController.pager.booksOnPage}" >
+                    #{msg.pages}:
+                    <ui:repeat value="#{searchController.pager.pageCount}" var="page">
+                        <h:commandLink value="#{page}"
+                                       styleClass="#{searchController.pager.selectedPage == page ? 'selectedPage page' : 'page'}">
+                            <f:param name="pageSelected" value="#{page}"/>
+                            <f:ajax onevent="showProgress" event="click" render=":bookForm :booksForm:bookList :page1 :page2" listener="#{searchController.selectPage()}" />
+                        </h:commandLink>
+                    </ui:repeat>
+                </h:form>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

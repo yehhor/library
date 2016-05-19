@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Online Library</title>
+        <h:outputStylesheet library="css" name="style_main.css"/>
+    </h:head>
+    <h:body>
+        <ui:composition>
+
+            <div class="logo">
+                <h:graphicImage library="images" name="library.png"/>
+            </div>
+            <div class="descr">
+                <h3>Онлайн библиотека проекта javabegin.ru</h3>
+            </div>
+            <div class="name">
+                <h4 class="hello">Приветствую, #{user.name}!</h4>
+                <h:form>
+                    <h:commandLink styleClass="exitLink" value="#{msg.exit}" action="#{user.logout()}"/>
+                </h:form>
+            </div>
+
+            <div class="search_form">
+                <h:form styleClass="search_form1">
+                    <h:commandLink styleClass="locale" value="rusImage" action="#{localeChanger.changeLocale('ru')}" />
+                    <h:commandLink styleClass="locale1" value="enImage" action="#{localeChanger.changeLocale('en')}" />
+                    <h:inputText id="search_string" styleClass="search_string" value="#{searchController.searchString}" />
+                    <h:commandButton styleClass="search_button" value="#{msg.search_button}">
+                        <f:ajax event="click" execute="@form" listener="#{searchController.fillBooksByString()}" render="@form :booksForm:totalBooksCount :booksForm:bookList :page1 :page2 :letters :left_form"/>
+                    </h:commandButton>
+                    <h:selectOneMenu value="#{searchController.searchType}" styleClass="search_list">
+                        <f:selectItems value="${searchController.searchList}"/>
+                    </h:selectOneMenu>
+                </h:form>
+            </div>
+
+            <div class="letters">
+                <h:form id="letters">
+                    <ui:repeat value="#{genreController.letterList}" var="l">
+                        <h:commandLink value="#{l}" styleClass="#{l.equals(searchController.letterSelected) ? 'letterSel' : ''}">
+                            <f:ajax event="click" listener="#{searchController.fillBooksByString(l)}" render="@form :booksForm:totalBooksCount :booksForm:bookList :page1 :page2 :letters :left_form"/>
+                        </h:commandLink>
+                    </ui:repeat>
+                </h:form>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,279 @@
+
+body {
+    font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+    background-color:  #f2f2f2;
+    margin: 0 auto;
+    padding: 0;
+    color: #000;
+    font-size: 13px;
+    width: 1000px;
+}
+
+ul, ol, dl { 
+    padding: 0;
+    margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+    margin-top: 0;	 
+    padding-right: 15px;
+    padding-left: 15px; 
+}
+
+a img { 
+    border: none;
+}
+
+a 
+{
+    color: #006666
+}
+
+a:link {
+    color:#414958;
+    text-decoration: underline; 
+}
+
+a:hover, a:active, a:focus { 
+    text-decoration: none;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto; 
+    background-color: #ffffff;
+    padding:20px;
+}
+
+.left_menu {
+    float: left;
+    width: 15%;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    margin: 10px;
+    border-right: #cccccc solid thin;
+}
+.left_menu form a
+{
+    display:block;
+}
+.content {
+    padding: 10px 0;
+    width: 65%;
+    float: left;
+}
+
+
+ul.nav {
+    list-style: none; 
+    margin-bottom: 15px; 
+}
+ul.nav li.active{
+    background-color: #55779B;
+}
+ul.nav a:hover, ul.nav a:active, ul.nav a:focus {
+    background-color: #E0E7EF;
+}
+
+
+
+.search_form1{
+    width:auto;
+    margin:20px auto;
+    background-color: #dbe4f6;
+    border-radius: 10px;
+    text-align: center;
+    padding:5px;
+}
+.search_string
+{
+    width:700px;
+    margin-right: 10px;
+}
+.search_list
+{
+    margin-left: 10px;
+}
+
+.logo{
+    text-align: left;
+    width:100px;
+    height: 100px;
+    display:inline-block;
+
+}
+
+.descr{
+    width: 300px;
+    text-align: left;
+    padding-top: 50px;
+    display:inline-block;
+    vertical-align: top;
+}
+.name
+{
+    margin-left: 330px;
+    vertical-align: top;
+    padding-top: 50px;
+    display:inline-block;
+    
+}
+
+
+.search_button {
+    -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
+    background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
+    background-color:#79bbff;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #84bbf3;
+    display:inline-block;
+    color:#ffffff;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #528ecc;
+}.search_button:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
+    background:-moz-linear-gradient( center top, #378de5 5%, #79bbff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
+    background-color:#378de5;
+    cursor:pointer;
+}.search_button:active {
+    position:relative;
+    top:1px;
+}
+
+.content{
+    float:left;
+    width: 790px;
+    margin-left: 20px;
+}
+
+
+.book_list h3{
+    text-align: center;
+}
+.bookName
+{
+    color:#378de5 ;
+    font-weight: bold; 
+    font-size: 15px;
+}
+.bookItem
+{
+    display:inline-block;
+}
+.letters
+{
+    margin:10px auto;
+   width: max-content;
+    border-bottom:#cccccc solid thin;
+    padding-bottom: 10px;
+}
+.letters form
+{
+    display: inline-block;
+    text-decoration: none;
+   padding-right: 5px;
+   font-weight: bold;
+}
+.letters a
+{
+    margin: 5px;
+}
+.letters a.active
+{
+    font-style:italic;
+    text-decoration: underline;
+}
+.hello
+{
+   margin:0;
+    font-size: 8pt;
+}
+.footer
+{
+    text-align: center;
+    clear:both;
+}
+.row2
+{
+    background: #F1F1DA;
+}
+.info > p
+{
+    margin:1px;;
+}
+.contentTable{
+    width:100%;
+}
+.col3
+{
+    vertical-align: top;
+    word-break: break-all;
+}
+.col2
+{
+    vertical-align: top;
+    padding-left: 15px;
+    min-width:180px;
+    font-size: 10px;
+}
+.col2 a
+{
+    font-size: 14px;
+}
+.selectedGenre
+{
+    font-style: italic;
+    color:#ff3333;
+}
+.letterSel
+{
+    font-style: italic;
+    color:#ff3333;
+}
+.page
+{
+    margin-right: 5px;
+}
+.selectedPage
+{
+    font-style: italic;
+    color:#ff3333;
+}
+#loading_wrapper{
+    display:block;
+    display: none;
+    position:absolute;
+    right: 350px;
+}
+.locale
+{
+    position:absolute;
+    top:15px;
+    right:200px;
+}
+.locale1
+{
+    position:absolute;
+    top:15px;
+    right:280px;
+}
+.editBooks,
+.addBook,
+.adminBtn
+{
+    margin-left: 5px;
+}
+.pageCountSel
+{
+    margin:0 5px;
+}

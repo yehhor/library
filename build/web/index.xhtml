@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <f:view locale="#{localeChanger.currentLocale}">
+        <h:head>
+            <title>#{msg.welcome_title}</title>
+            <h:outputStylesheet library="css" name="style_index.css" />
+        </h:head>
+        <h:body>
+
+            <div class="main">
+                <div class="content">
+                    <h:form>
+                        <h:commandLink styleClass="locale" action="#{localeChanger.changeLocale('ru')}" >
+                            <h:graphicImage styleClass="flags" library="images" name="russia_flag.png"/>
+                            <f:ajax execute="@form" render=":login_div :title"/>
+                        </h:commandLink>
+                        <h:commandLink styleClass="locale1" action="#{localeChanger.changeLocale('en')}" >
+                            <h:graphicImage styleClass="flags" library="images" name="en_flag.gif"/>
+                            <f:ajax execute="@form" render=":login_div :title"/>
+                        </h:commandLink>
+                    </h:form>
+                    <h:graphicImage style="main_image" library="images" name="library.png"/>
+                    <p class="title"><h:outputText id="title">#{msg.index_title}</h:outputText></p>
+                    
+                </div>
+
+
+                <h:panelGroup layout="block" styleClass="login_div" id="login_div">
+                    <p class="title">#{msg.input_info}</p>
+                    <h:form styleClass="login_form">
+                        #{msg.input_name} 
+                        <h:inputText id="username" value="#{user.name}" >
+                            <f:validator validatorId="web.validators.LoginValidator" />
+                             <f:ajax event="keyup" render="loginError" />
+                        </h:inputText><br></br>
+                            #{msg.password}
+                        <h:inputSecret style="margin-top:5px;" id="password" value="#{user.password}" /> <br></br>
+                        <h:commandButton style="margin-top:5px;" action="#{user.login()}" value="Войти" />
+                        <h:message id="loginError" for="username" styleClass="error" />
+                        <h:message id="loginError2" for="login_div" styleClass="error" />
+                    </h:form>
+
+                </h:panelGroup>
+            </div>
+            <div class="footer">
+                #{msg.author_info}
+            </div>
+        </h:body>
+    </f:view>
+</html>
+

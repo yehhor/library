@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <f:view locale="#{localeChanger.currentLocale}">
+        <h:head>
+            <title><ui:insert name="title"/></title>
+            <h:outputStylesheet library="css" name="style_main.css"/>
+            <h:outputScript library="js" name="myScript.js" target="head"/>
+        </h:head>
+        <h:body>
+            <div id="loading_wrapper">
+                <h:graphicImage library="images" name="ajax-loader.gif" />
+            </div>
+
+            <div class="container">
+
+                <div class="header">
+                    <ui:insert name="header">
+                        <ui:include src="header.xhtml"/>
+                    </ui:insert>
+                </div>
+
+                <div class="middle">
+                    <div class="left_menu">
+                        <ui:insert name="left_menu">
+                            <ui:include src="left_menu.xhtml"/>
+                        </ui:insert>
+                    </div>
+                    <div class="content">
+                        <div class="paginator">
+                            <h:panelGroup id="page1"><ui:insert name="paginator"/></h:panelGroup>
+                        </div>
+                        <ui:insert name="content">
+                            content
+                        </ui:insert>
+                        <div class="paginator">
+                            <h:panelGroup id="page2"><ui:insert name="paginator"/></h:panelGroup>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="footer">
+                    <ui:insert name="footer">
+                        <ui:include src="footer.xhtml"/>
+                    </ui:insert>
+                </div>
+
+            </div>
+        </h:body>
+    </f:view>
+</html>
+
